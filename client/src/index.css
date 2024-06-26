@@ -1,0 +1,9 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body,
+html {
+  background-color: whitesmoke;
+  scroll-behavior: smooth;
+}
