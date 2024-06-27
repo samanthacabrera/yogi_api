@@ -20,7 +20,7 @@ const CopyBox = ({ content }) => {
       <div className="font-medium" ref={textRef}>
         {content}
       </div>
-      <button onClick={copyToClipboard} className="bg-slate-100 hover:bg-slate-200 p-2 rounded">
+      <button onClick={copyToClipboard} className="btn bg-slate-200 hover:bg-slate-300 rounded p-2">
         Copy
       </button>
     </div>
