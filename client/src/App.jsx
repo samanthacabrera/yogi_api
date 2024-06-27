@@ -5,7 +5,7 @@ import CopyBox from './CopyBox'
 function App() {
   return (
     <>
-      <h1 className="text-blue-200 text-8xl p-24 mx-64 font-extrabold text-justify uppercase">Your Favorite Yogi's Favorite Yoga API</h1>
+      <h1 className="text-blue-200 text-5xl m-24 font-extrabold uppercase">Your Favorite Yogi's Favorite Yoga API</h1>
 
       <div className="grid grid-cols-2">
         <div className="col-end-1 p-12 border-r-2 flex flex-col space-y-12">
@@ -29,12 +29,14 @@ function App() {
             <h6><span className="font-semibold">GET</span> poses of specific chakra</h6>
             <p className="text-sm">Description: Search for poses associated with the following chakras: Root, Sacral, Solar Plexus, Heart, Throat, Third Eye, and Crown. </p>
             <CopyBox content="https://api.com/poses" />
-
+          
+          <Poses />
+          
           <h2 id="response" className="pt-8 text-4xl border-t-4">Responses</h2>
             <h6> <span className="text-green-600"> &#x2022; </span> 200 - Success repsonse</h6>
             <h6> <span className="text-red-600"> &#x2022; </span> 404 - Pose not found</h6>
           <h6> <span className="text-red-600"> &#x2022; </span> 500 - Internal Server Error</h6>
-          <Poses/>
+       
           <h2 id="changelog" className="pt-8 text-4xl border-t-4">Changelog</h2>
           <h6>API version: 1.0.0</h6>
           <p><span className="underline">June 12, 2024</span> - Initialized quick start guide and changelog documentation for the API. Completed functionality to perform GET requests for all yoga poses.</p>

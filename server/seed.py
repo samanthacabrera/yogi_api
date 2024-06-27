@@ -12,7 +12,7 @@ def seed_poses():
         ("Gate Pose", "Crown"),
         ("Extended Side Angle Pose", "Root"),
         ("Wide Legged Forward Bend", "Sacral"),
-        ("Wide-Angle Seated Forward Bend", "Solar Plexus"),
+        ("Wide Seated Forward Bend", "Solar Plexus"),
         ("Reclining Bound Angle Pose", "Heart"),
         ("Hero Pose", "Throat"),
         ("Chair Pose", "Third Eye"),
