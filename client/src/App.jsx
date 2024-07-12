@@ -5,7 +5,7 @@ import CopyBox from './CopyBox'
 function App() {
   return (
     <>
-      <h1 className="text-slate-300 text-9xl m-12 font-extrabold uppercase">Your Favorite Yogi's Favorite Yoga API</h1>
+      <h1 id="title" className="text-slate-300 text-9xl m-12 font-extrabold uppercase">Your Favorite Yogi's Favorite Yoga API</h1>
 
       <div className="grid grid-cols-2">
         <div className="col-end-1 p-12 border-r-2 flex flex-col space-y-12">
@@ -47,7 +47,7 @@ function App() {
         </div>
       </div>
       
-      <h6 id="footer" className="mt-12 text-xs text-slate-400">Made with &hearts; by Sam</h6>
+      <h6 id="footer" className="mt-12 text-xs text-slate-400">Made with &hearts; by <a href="https://github.com/samanthacabrera" target='_blank'>Sam</a></h6>
     </>
   )
 }
