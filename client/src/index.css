@@ -5,11 +5,9 @@
 
 body,
 html {
-  background-color: whitesmoke;
   scroll-behavior: smooth;
-  background: linear-gradient(-45deg, #b3b3d4, #877d9c);
-  background-size: 400% 400%;
-  animation: gradientAnimation 5s ease infinite;
+  background-color: whitesmoke;
+  color: rgb(135, 126, 144);
 }
 
 #title {
