@@ -5,8 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, inspect
 from flask_migrate import Migrate
 from sqlalchemy_serializer import SerializerMixin
-import random
-import time
+
 
 app = Flask(__name__)
 CORS(app)
