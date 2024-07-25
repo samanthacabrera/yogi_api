@@ -2,12 +2,14 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy import MetaData
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.serving import run_simple
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
-# Define SQLAlchemy metadata 
+# Define SQLAlchemy metadata with naming conventions
 metadata = MetaData(naming_convention={
     "ix": "ix_%(column_0_label)s",
     "uq": "uq_%(table_name)s_%(column_0_name)s",
@@ -21,7 +23,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(metadata=metadata)
 
-# Models 
 class Pose(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -33,8 +34,6 @@ class Pose(db.Model):
             "name": self.name,
             "chakra": self.chakra
         }
-    
-# API Endpoints
 
 @app.route('/api/poses', methods=['GET'])
 def get_all_poses():
@@ -58,9 +57,9 @@ def get_pose_by_chakra(chakra):
 
 # Vercel serverless function handler
 def handler(request):
-    from werkzeug.middleware.dispatcher import DispatcherMiddleware
-    from werkzeug.serving import run_simple
-
     return DispatcherMiddleware(app, {
         '/api': app
-    })
+    })(request.environ, request.start_response)
+
+if __name__ == "__main__":
+    app.run(debug=True)

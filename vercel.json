@@ -5,16 +5,6 @@
       "maxDuration": 10
     }
   },
-  "builds": [
-    {
-      "src": "api/poses.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "api/seed.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -22,7 +12,3 @@
     }
   ]
 }
-
-
-
-
