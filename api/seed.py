@@ -1,6 +1,7 @@
-from models import *
-from services import *
+from api.models import *
+from api.services import *
 
+@app.route('/api/seed', methods=['POST'])
 def seed_poses():
     poses = [
         ("Conquer Breath", "Root"),
@@ -54,17 +55,20 @@ def seed_poses():
         ("Shoulder Stand", "Crown"),
         ("Butterfly Pose", "Root")
     ]
-
     for pose_data in poses:
         new_pose = Pose(name=pose_data[0], chakra=pose_data[1])
         db.session.add(new_pose)
-
     db.session.commit()
-    print("Yoga poses inserted successfully")
+    return jsonify({"message": "Yoga poses inserted successfully"})
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
-        seed_poses()  
-      
+def handler(request):
+    from werkzeug.middleware.dispatcher import DispatcherMiddleware
+    from werkzeug.serving import run_simple
+
+    return DispatcherMiddleware(app, {
+        '/api': app
+    })
+
+
+
+ 
