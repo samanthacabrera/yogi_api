@@ -21,7 +21,7 @@ metadata = MetaData(naming_convention={
 # Configure SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(metadata=metadata)
+db = SQLAlchemy(app, metadata=metadata)  # Initialize SQLAlchemy with the app
 
 class Pose(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,19 +35,23 @@ class Pose(db.Model):
             "chakra": self.chakra
         }
 
-@app.route('/api/poses', methods=['GET'])
+@app.route('/', methods=['GET']) 
+def index():
+    return "hello from backend"
+
+@app.route('/poses', methods=['GET'])
 def get_all_poses():
     poses = Pose.query.all()
     return jsonify([pose.to_dict() for pose in poses])
 
-@app.route('/api/poses/<int:id>', methods=['GET'])
+@app.route('/poses/<int:id>', methods=['GET'])
 def get_pose_by_id(id):
     pose = Pose.query.get(id)
     if pose:
         return jsonify(pose.to_dict())
     return jsonify({"error": "Pose not found"}), 404
 
-@app.route('/api/poses/<string:chakra>', methods=['GET'])
+@app.route('/poses/<string:chakra>', methods=['GET'])
 def get_pose_by_chakra(chakra):
     if chakra:
         poses = Pose.query.filter_by(chakra=chakra).all()

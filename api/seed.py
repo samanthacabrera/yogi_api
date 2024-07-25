@@ -54,6 +54,7 @@ def seed_poses():
         ("Butterfly Pose", "Root")
     ]
     with app.app_context():
+        db.create_all()  
         for pose_data in poses:
             new_pose = Pose(name=pose_data[0], chakra=pose_data[1])
             db.session.add(new_pose)
