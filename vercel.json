@@ -1,6 +1,5 @@
 {
   "version": 2,
-
   "builds": [
     {
       "src": "client/package.json",
@@ -10,22 +9,21 @@
       }
     },
     {
-      "src": "server/**/*.js",
-      "use": "@vercel/node"
+      "src": "server/Pipfile",
+      "use": "@vercel/python",
+      "config": {
+        "pipenv": true
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/api/$1"
+      "dest": "server/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/client/$1"
+      "dest": "client/$1"
     }
   ]
 }
-
-
-
-
