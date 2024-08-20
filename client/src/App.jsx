@@ -1,55 +1,127 @@
-import './App.css'
-import Responses from './Responses'
-import CopyBox from './CopyBox'
+import React, { useState, useEffect, useCallback } from 'react';
+import './styles/App.css';
+import Sidebar from './components/Sidebar';
+import GettingStarted from './components/GettingStarted';
+import Endpoints from './components/Endpoints';
+import Changelog from './components/Changelog';
 
 function App() {
+  const [activeId, setActiveId] = useState('intro');
+  const [allPoses, setAllPoses] = useState([]);
+  const [poseById, setPoseById] = useState({});
+  const [posesByChakra, setPosesByChakra] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedChakra, setSelectedChakra] = useState('');
+  const [selectedId, setSelectedId] = useState('');
+  const [showAllPoses, setShowAllPoses] = useState(false);
+
+  useEffect(() => {
+    const fetchAllPoses = async () => {
+      try {
+        const response = await fetch('api/poses');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setAllPoses(data);
+      } catch (error) {
+        console.error('Error fetching all poses:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllPoses();
+  }, []);
+
+  const handleToggleAllPoses = () => {
+    setShowAllPoses(!showAllPoses);
+  };
+
+  const handleFetchPoseById = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`api/poses/${selectedId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setPoseById(data);
+    } catch (error) {
+      console.error(`Error fetching pose by ID ${selectedId}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFetchPosesByChakra = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`api/poses/${selectedChakra}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setPosesByChakra(data);
+    } catch (error) {
+      console.error(`Error fetching poses by chakra ${selectedChakra}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('h2[id], h3[id]');
+    const options = {
+      root: null, 
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveId(entry.target.id);
+        }
+      });
+    }, options);
+
+    sections.forEach(section => observer.observe(section));
+
+    return () => {
+      sections.forEach(section => observer.unobserve(section));
+    };
+  }, []);
+
   return (
     <>
-      <h1 id="title" className="text-9xl m-12 font-extrabold uppercase">Your Favorite Yogi's Favorite Yoga API</h1>
-
-      <div className="grid grid-cols-2">
-        <div className="col-end-1 p-12 border-r-2 flex flex-col space-y-12">
-          <a href="#intro">Getting Started</a>
-          <a href="#endpoints">Endpoints</a>
-          <a href="#responses">Responses</a>
-          <a href="#changelog">Changelog</a>
+      <div className="grid grid-cols-12">
+        <div className="col-start-1 col-span-2">
+          <Sidebar activeId={activeId} />
         </div>
-
-        <div className="space-y-8 text-left p-12">
-          <h2 id="intro" className="pb-8  border-b-4 text-4xl">Getting Started</h2>
-
-           <h3 className="text-xl font-semibold mb-2">Overview</h3>
-            <p>This API provides comprehensive access to a diverse collection of yoga poses, allowing you to integrate yoga pose data into your applications effortlessly.</p>
-            <p>Ensure to handle loading states, errors, and parse JSON responses appropriately in your application to provide a seamless user experience.</p>
-            <p>This API currently does not require authentication for accessing its endpoints. However, if you plan to integrate it into a production environment or expose sensitive data, consider implementing authentication and authorization mechanisms.</p>
-
-          <h2 id="endpoints" className="pt-8 text-4xl border-t-4">Poses</h2>
-            <h6><span className="font-semibold">GET</span> all poses</h6>
-            <p className="text-sm">This endpoint provides a comprehensive view of the entire database of yoga poses accessible through this API.</p>
-            <CopyBox content="https://api.com/poses" />
-
-            <h6><span className="font-semibold">GET</span> a specific pose</h6>
-            <p className="text-sm">This endpoint allows you to fetch detailed information about a particular yoga pose based on its ID.</p>
-            <CopyBox content="https://api.com/poses" />
-
-            <h6><span className="font-semibold">GET</span> poses of specific chakra</h6>
-            <p className="text-sm">This endpoint enables you to filter yoga poses based on their association with different chakras such as Root, Sacral, Solar Plexus, Heart, Throat, Third Eye, and Crown. </p>
-            <CopyBox content="https://api.com/poses" />
-       
-          <h2 id="changelog" className="pt-8 text-4xl border-t-4">Changelog</h2>
-          <h6>API version: 1.0.0</h6>
-          <p><span className="underline">June 12, 2024</span> - Initialized quick start guide and changelog documentation for the API. Completed functionality to perform GET requests for all yoga poses.</p>
-          <p><span className="underline">June 25, 2024</span> - Included reponse status codes and their meanings. </p>
-        </div>
-
-        <div>
-          <Responses />
+        <div className="col-span-8 space-y-8">
+          <h1 id="title" className="text-4xl md:text-6xl lg:text-8xl text-center font-extrabold uppercase p-0 md:p-8">Your Favorite Yogi's Favorite Yoga API</h1>
+          <GettingStarted />
+          <Endpoints 
+            handleToggleAllPoses={handleToggleAllPoses}
+            showAllPoses={showAllPoses}
+            allPoses={allPoses}
+            loading={loading}
+            handleFetchPoseById={handleFetchPoseById}
+            handleFetchPosesByChakra={handleFetchPosesByChakra}
+            selectedChakra={selectedChakra}
+            setSelectedChakra={setSelectedChakra}
+            posesByChakra={posesByChakra}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+            poseById={poseById}
+          />
+          <Changelog />
+          <h6 id="footer" className="pt-12 text-xs text-center">Made with &hearts; by <a href="https://github.com/samanthacabrera" target='_blank' rel="noopener noreferrer">Sam</a></h6>
         </div>
       </div>
-      
-      <h6 id="footer" className="mt-12 text-xs text-slate-400">Made with &hearts; by <a href="https://github.com/samanthacabrera" target='_blank'>Sam</a></h6>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

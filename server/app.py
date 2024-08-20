@@ -9,7 +9,7 @@ from werkzeug.serving import run_simple
 app = Flask(__name__)
 CORS(app)
 
-# Define SQLAlchemy metadata with naming conventions
+# Define SQLAlchemy metadata 
 metadata = MetaData(naming_convention={
     "ix": "ix_%(column_0_label)s",
     "uq": "uq_%(table_name)s_%(column_0_name)s",
@@ -21,7 +21,7 @@ metadata = MetaData(naming_convention={
 # Configure SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app, metadata=metadata)  # Initialize SQLAlchemy with the app
+db = SQLAlchemy(app, metadata=metadata)  
 
 class Pose(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -58,12 +58,6 @@ def get_pose_by_chakra(chakra):
     else:
         poses = Pose.query.all()
     return jsonify([pose.to_dict() for pose in poses])
-
-# Vercel serverless function handler
-def handler(request):
-    return DispatcherMiddleware(app, {
-        '/api': app
-    })(request.environ, request.start_response)
 
 if __name__ == "__main__":
     app.run(debug=True)

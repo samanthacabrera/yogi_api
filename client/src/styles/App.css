@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  background-color: whitesmoke;
+  color: rgb(135, 126, 144);
+}
+
+#title {
+  font-family: Bebas Neue, Helvetica, sans-serif;
+}
+
+.heading {
+  font-size: 3rem;
+  padding-top: 0.5rem;
+  border-bottom: 2px solid currentColor;
+  border-radius: 5px;
+}
+
+.subheading {
+  font-size: 1.25rem;
+  font-weight: bolder;
+  padding: 1% 0;
+}
+
+.link.active {
+  font-weight: bold;
+}
