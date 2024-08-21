@@ -6,7 +6,7 @@ import Endpoints from './components/Endpoints';
 import Changelog from './components/Changelog';
 
 function App() {
-  const [activeId, setActiveId] = useState('intro');
+  const [activeId, setActiveId] = useState('start');
   const [allPoses, setAllPoses] = useState([]);
   const [poseById, setPoseById] = useState({});
   const [posesByChakra, setPosesByChakra] = useState([]);
@@ -95,11 +95,11 @@ function App() {
 
   return (
     <>
-      <div className="grid grid-cols-12">
-        <div className="col-start-1 col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-12">
+        <div className="hidden md:block">
           <Sidebar activeId={activeId} />
         </div>
-        <div className="col-span-8 space-y-8">
+        <div className="col-span-12 md:col-span-10 text-center md:text-left md:col-start-3 space-y-8">
           <h1 id="title" className="text-4xl md:text-6xl lg:text-8xl text-center font-extrabold uppercase p-0 md:p-8">Your Favorite Yogi's Favorite Yoga API</h1>
           <GettingStarted />
           <Endpoints 

@@ -22,14 +22,14 @@ const Endpoints = ({
 
   const toggleShowIdResponse = () => {
     if (!showIdResponse) {
-      handleFetchPoseById(); // Fetch pose by ID when showing the response
+      handleFetchPoseById(); 
     }
     setShowIdResponse(!showIdResponse);
   };
 
   const toggleShowChakraResponse = () => {
     if (!showChakraResponse) {
-      handleFetchPosesByChakra(); // Fetch poses by chakra when showing the response
+      handleFetchPosesByChakra();
     }
     setShowChakraResponse(!showChakraResponse);
   };
@@ -49,7 +49,7 @@ const Endpoints = ({
         <CopyBox content="http://localhost:5000/poses" />
         <div className="flex items-center mt-4 space-x-4">
           <button
-            className="btn bg-indigo-200 hover:bg-indigo-300 text-gray-800 rounded-md py-2 px-4"
+            className="btn border border-2 hover:bg-gray-50 hover:scale-105 transition duration-300 rounded-lg text-xs p-2"
             onClick={() => setShowAllResponse(!showAllResponse)}
             disabled={loading}
           >
@@ -88,7 +88,7 @@ const Endpoints = ({
             ))}
           </select>
           <button
-            className="btn bg-indigo-200 hover:bg-indigo-300 text-gray-800 rounded-md py-2 px-4"
+            className="btn border border-2 hover:bg-gray-50 hover:scale-105 transition duration-300 rounded-lg text-xs p-2"
             onClick={toggleShowIdResponse}
             disabled={loading || !selectedId}
           >
@@ -127,7 +127,7 @@ const Endpoints = ({
             ))}
           </select>
           <button
-            className="btn bg-indigo-200 hover:bg-indigo-300 text-gray-800 rounded-md py-2 px-4"
+            className="btn border border-2 hover:bg-gray-50 hover:scale-105 transition duration-300 rounded-lg text-xs p-2"
             onClick={toggleShowChakraResponse}
             disabled={loading || !selectedChakra}
           >

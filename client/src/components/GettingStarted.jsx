@@ -12,13 +12,13 @@ const GettingStarted = () => (
       {/* How To Use */}
       <h3 id="howto" className="subheading">How To Use</h3>
       <p>To get started with this API, clone the repository using the following command:</p>
-      <pre className="bg-gray-200 p-4 rounded-md">git clone https://github.com/samanthacabrera/yogi_api</pre>
+      <pre className="bg-gray-200 p-4 rounded-md text-xs md:text-base">git clone https://github.com/samanthacabrera/yogi_api</pre>
       <p>Navigate to the project directory and install the required dependencies:</p>
-      <pre className="bg-gray-200 p-4 rounded-md">cd yogi_api<br/>npm install</pre>
+      <pre className="bg-gray-200 p-4 rounded-md text-sm md:text-base">cd yogi_api<br/>npm install</pre>
       <p>Start the server with the following command:</p>
-      <pre className="bg-gray-200 p-4 rounded-md">cd server<br />pipenv install && pipenv shell<br />python app.py</pre>
+      <pre className="bg-gray-200 p-4 rounded-md text-sm md:text-base">cd server<br />pipenv install && pipenv shell<br />python app.py</pre>
       <p>After starting the server, you can access the API locally at:</p>
-      <pre className="bg-gray-200 p-4 rounded-md">http://localhost:5000</pre>
+      <pre className="bg-gray-200 p-4 rounded-md text-sm md:text-base">http://localhost:5000</pre>
       <p>Use this base URL to interact with the various endpoints provided by the API.</p>
       {/* Responses */}
       <h3 id="responses" className="subheading">Response Codes</h3>
