@@ -1,7 +1,3 @@
-# Yogi API - Getting Started
+### YOUR FAVORITE YOGI'S FAVORITE YOGA API - [watch demo](https://www.youtube.com/embed/Inhkh8RiL1k)
 
-To install Yogi API onto your local machine, follow these steps:
-
-### Backend Setup
-### Fronted Setup
-### Accessing the API
+A lightweight API built providing access to a collection of yoga poses for developers to integrate yoga data into their applications.
